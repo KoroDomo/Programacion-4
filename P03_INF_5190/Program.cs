@@ -20,7 +20,6 @@ namespace DML_SqlServer
             Console.WriteLine("******************************************************************************************");
             var datasource = @"OFLO\SQLEXPRESS";//El nombre del servidor de BD
             var database = "Concesionario"; //El nombre de la base de datos
-            var procedure = "sp_InsertaCliente";
 
 
             //Cadena de texto que  corresponde a la conexion.
@@ -29,83 +28,55 @@ namespace DML_SqlServer
             //Se crea la instancia que crea la BD
             SqlConnection SqlCon = new SqlConnection(str);
 
-            try
-            {
-                SqlCommand cmd = new SqlCommand(procedure, SqlCon);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(new SqlParameter("@IdVehiculo", 6));
-                cmd.Parameters.Add(new SqlParameter("@Nombre", "Juan"));
-                cmd.Parameters.Add(new SqlParameter("@Apellidos", "De Los Palotes Marrano"));
-                cmd.Parameters.Add(new SqlParameter("@Cedula", "00000000000"));
-                cmd.Parameters.Add(new SqlParameter("@Direccion", "Av. De las Hortensias"));
-                cmd.Parameters.Add(new SqlParameter("@Codigo", "Usado"));
-
-                if(SqlCon.State != ConnectionState.Open)
-                {
-                    SqlCon.Open();
-                }
-
-                int n = cmd.ExecuteNonQuery();
-
-                if(n > 0)
-                {
-                    Console.WriteLine("Se ha(n) insertado {0} registro(s).", n);
-                }
-                else
-                {
-                    Console.WriteLine("Intentalo de nuevo que ha ocurrido un error.");
-                }
-
-                Console.WriteLine("");
-                Console.WriteLine("**********************************************************************");
-                Console.WriteLine("***********************LISTA DE CLIENTE REGISTRADOS*******************");
-
-                // Metoodo de consulta para la tabla vehiculo
-                ConsultaCliente(SqlCon);
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
-
             //ArrayList datos = new ArrayList();
 
             /*Metodo para registrar Cliente*/
             //RegistraCliente(SqlCon);
 
-            //string[] datos = new string[] { "1", "Dioris", "Arias", "40221162023", "Parabola 42", "Nuevo" };
-            //RegistraCliente(SqlCon, datos);
+            string[] datos = new string[] { "1", "Dioris", "Arias", "40221162023", "Parabola 42", "Nuevo" };
+            RegistraCliente(SqlCon, datos);
 
-            //datos = new string[] { "2", "Juan", "Santana", "9999999999", "Ave Independencia 5", "Usado" };
-            //RegistraCliente(SqlCon, datos);
+            datos = new string[] { "2", "Juan", "Santana", "9999999999", "Ave Independencia 5", "Usado" };
+            RegistraCliente(SqlCon, datos);
 
-            //datos = new string[] { "3", "Pedro", "Pelaez", "1234567890", "Ave Sarasota 43", "Nuevo" };
-            //RegistraCliente(SqlCon, datos);
+            datos = new string[] { "3", "Pedro", "Pelaez", "1234567890", "Ave Sarasota 43", "Nuevo" };
+            RegistraCliente(SqlCon, datos);
 
-            //datos = new string[] { "4", "Miguel", "Sosa", "1472589630", "Ave Charles Sumner 1", "Usado" };
-            //RegistraCliente(SqlCon, datos);
+            datos = new string[] { "4", "Miguel", "Sosa", "1472589630", "Ave Charles Sumner 1", "Usado" };
+            RegistraCliente(SqlCon, datos);
 
-            //datos = new string[] { "5", "Jose", "Santos", "3692581477", "Ave 27 de Febrero 49", "Nuevo" };
-            //RegistraCliente(SqlCon, datos);
+            datos = new string[] { "5", "Jose", "Santos", "3692581477", "Ave 27 de Febrero 49", "Nuevo" };
+            RegistraCliente(SqlCon, datos);
 
             /*Metodo para actualizar Cliente*/
             //ActualizaCliente(SqlCon);
-            //string[] actDatos = new string[] { "Jose", "Ferreiras", "Conde Peatonal 007", "40221162023"};
-            //ActualizaCliente(SqlCon, actDatos);
+            string[] actDatos = new string[] { "Jose", "Ferreiras", "Conde Peatonal 007", "40221162023"};
+            ActualizaCliente(SqlCon, actDatos);
 
-            //actDatos = new string[] { "Melvin", "Quinones", "Ave Ecologica 900", "1472589630" };
-            //ActualizaCliente(SqlCon, actDatos);
+            actDatos = new string[] { "Melvin", "Quinones", "Ave Ecologica 900", "1472589630" };
+            ActualizaCliente(SqlCon, actDatos);
 
 
             /*Metodo de consulta para  la tabla Cliente*/
-            //ConsultaCliente(SqlCon);
+            ConsultaCliente(SqlCon);
 
             /*Metodo para eliminar Cliente*/
-            //string elimCedula = "1234567890";
+            string elimCedula = "1234567890";
+            EliminaCliente(SqlCon, elimCedula);
+
+            //elimCedula = "9999999999";
             //EliminaCliente(SqlCon, elimCedula);
 
+            //elimCedula = "1234567890";
+            //EliminaCliente(SqlCon, elimCedula);
 
-            //ConsultaCliente(SqlCon);
+            //elimCedula = "1472589630";
+            //EliminaCliente(SqlCon, elimCedula);
+
+            //elimCedula = "3692581477";
+            //EliminaCliente(SqlCon, elimCedula);
+
+            ConsultaCliente(SqlCon);
 
             Console.WriteLine("Cerrando conexion ...");
 
@@ -117,7 +88,7 @@ namespace DML_SqlServer
             Console.WriteLine("La conexion se ha cerrado exitosamente!");
 
 
-            //Console.ReadKey();
+            Console.ReadKey();
         }
 
         #region ConsultaCliente. Metodo que realiza la consulta del Cliente
