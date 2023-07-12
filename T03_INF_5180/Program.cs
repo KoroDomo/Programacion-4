@@ -1,7 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 Console.WriteLine("********************* INGRESO DE ESTUDIANTES**************\n\n");
 
-int opcion = 0;
+int opcion, matricula, edad, promedio;
+string nombre, apellidos;
 
 // Declaracion de la lista que contendra a los objetos estudiantes
 List<Estudiante> lista = new List<Estudiante>()
@@ -14,33 +15,67 @@ List<Estudiante> lista = new List<Estudiante>()
 };
 
 
-opcion = MostrarMenu();
+do
+{
+    opcion = MostrarMenu();
+    switch (opcion)
+    {
+        case 1:
+            Agregar();
+            break;
+    }
 
+    
+}while(opcion != 0);
 
-
-
-foreach(Estudiante e in lista)
+foreach (Estudiante e in lista)
 {
     Console.WriteLine(e.ToString());
 }
 
+void Agregar()
+{
+    Escribir("\n");
+    Escribir("Ingrese Matricula: ");
+    matricula = LeerEntero();
+    Escribir("Ingrese Nombre: ");
+    nombre = Leer();
+    Escribir("Ingrese Apellidos: ");
+    apellidos = Leer();
+    Escribir("Ingrese Edad: ");
+    edad = LeerEntero();
+    Escribir("Ingrese Promedio: ");
+    promedio = LeerEntero();
+
+    lista.Add(new Estudiante(matricula, nombre, apellidos, edad, promedio));
+
+    Escribir("\nEstudiante agregado. Presione cualquier tecla para regresar");
+    Leer();
+    Console.Clear();
+}
+
+
+
 
 int MostrarMenu()
 {
-    Escribir("1- Añadir Estudiante: ");
-    Escribir("2- Editar Estudiante: ");
-    Escribir("3- Eliminar Estudiante: ");
-    Escribir("4- Buscar Estudiante: ");
-    Escribir("5- Buscar Estudiante: ");
-    Escribir("6- Desplegar Estudiantes con promedio > 70 y < 90: ");
-    Escribir("7- Desplegar Estudiantes que tengan edades comprendidas entre 12 y 15 años.: ");
-    Escribir("8- Desplegar Estudiantes por Promedio (Descendente): ");
-    Escribir("9- Desplegar todos los Estudiantes: ");
+    Escribir("1- Añadir Estudiante");
+    Escribir("2- Editar Estudiante");
+    Escribir("3- Eliminar Estudiante");
+    Escribir("4- Buscar Estudiante");
+    Escribir("5- Buscar Estudiante");
+    Escribir("6- Desplegar Estudiantes con promedio > 70 y < 90");
+    Escribir("7- Desplegar Estudiantes que tengan edades comprendidas entre 12 y 15 años");
+    Escribir("8- Desplegar Estudiantes por Promedio (Descendente)");
+    Escribir("9- Desplegar todos los Estudiantes");
+    Escribir("0- Salir");
 
     Escribir("\n\nQue opcion desea realizar? (Digite el numero)");
 
     return Convert.ToInt32(Leer());
 }
+
+
 
 
 
@@ -53,6 +88,11 @@ void Escribir(string mensaje)
 string Leer()
 {
     return Console.ReadLine();
+}
+
+int LeerEntero()
+{
+    return Convert.ToInt32(Console.ReadLine());
 }
 
 
