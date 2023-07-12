@@ -33,6 +33,7 @@ foreach (Estudiante e in lista)
     Console.WriteLine(e.ToString());
 }
 
+// 1- Agregar Estudiante
 void Agregar()
 {
     Escribir("\n");
@@ -54,7 +55,24 @@ void Agregar()
     Console.Clear();
 }
 
+// 2- Editar Estudiante (Agno o Promedio)
 
+void Editar(List<Estudiante> alumno)
+{
+    int z, i = 0;
+    Escribir("\n");
+    Escribir("Cual estudiante desea editar?");
+    foreach(Estudiante estudiante in alumno)
+    {
+        i++;
+        Console.WriteLine("{0}: {1}", i, estudiante.Nombre);
+    }
+
+    z = LeerEntero();
+
+    Escribir("Que desea editar? 1. Año ");
+
+}
 
 
 int MostrarMenu()
