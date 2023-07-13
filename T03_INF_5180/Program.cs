@@ -7,13 +7,20 @@ string nombre, apellidos;
 // Declaracion de la lista que contendra a los objetos estudiantes
 List<Estudiante> lista = new List<Estudiante>()
 {
-    //new Estudiante(100149677, "Dioris", "Arias", 30, 90),
-    //new Estudiante(123456789, "Oflo", "Santos", 36, 100),
-    //new Estudiante(999999999, "Melvin", "Quinones", 35, 95),
-    //new Estudiante(484848489, "Fulano", "Detal", 25, 80),
-    //new Estudiante(565656567, "Sutaneja", "Perez", 24, 88),
+    new Estudiante(100149677, "Dioris",  "Arias", 30, 90),
+    new Estudiante(123456789, "Oflo", "Santos", 36, 100),
+    new Estudiante(999999999, "Melvin", "Quinones", 35, 95),
+    new Estudiante(484848489, "Fulano", "Detal", 25, 80),
+    new Estudiante(565656567, "Sutaneja", "Perez", 24, 88),
 };
-
+//List<Estudiante> lista = new List<Estudiante>
+//{
+//    new Estudiante(){Matricula = 100149677, Nombre ="Dioris", Apellidos = "Arias", Edad = 30, Promedio = 90},
+//    new Estudiante(){Matricula = 123456789, Nombre ="Oflo", Apellidos = "Santos", Edad = 36, Promedio =  100 },
+//    new Estudiante(){Matricula = 999999999, Nombre ="Melvin", Apellidos =  "Quinones", Edad =  35, Promedio =  95 },
+//    new Estudiante(){Matricula = 484848489, Nombre = "Fulano", Apellidos =  "Detal", Edad =  25, Promedio =  80 },
+//    new Estudiante(){Matricula = 565656567, Nombre = "Sutaneja", Apellidos =  "Perez", Edad =  24, Promedio =  88 },
+//};
 
 do
 {
@@ -23,15 +30,17 @@ do
         case 1:
             Agregar();
             break;
+        case 2:
+            Editar(lista);
+            break;
+        case 3:
+            Eliminar(lista);
+            break;
     }
 
     
 }while(opcion != 0);
 
-foreach (Estudiante e in lista)
-{
-    Console.WriteLine(e.ToString());
-}
 
 // 1- Agregar Estudiante
 void Agregar()
@@ -55,25 +64,56 @@ void Agregar()
     Console.Clear();
 }
 
-// 2- Editar Estudiante (Agno o Promedio)
+// 2- Editar Estudiante (Edad o Promedio)
 
 void Editar(List<Estudiante> alumno)
 {
-    int z, i = 0;
-    Escribir("\n");
-    Escribir("Cual estudiante desea editar?");
-    foreach(Estudiante estudiante in alumno)
-    {
-        i++;
-        Console.WriteLine("{0}: {1}", i, estudiante.Nombre);
-    }
+    int x, z, i = 0;
+    //Mostrando Nombre de Estudiantes guardados usando LinQ
+    alumno.ForEach(alu => Console.WriteLine(++i + ": " + alu.Nombre));
 
+    Escribir("\nIngrese el numero del Estudiante a editar: ");
     z = LeerEntero();
 
-    Escribir("Que desea editar? 1. Año ");
+    Escribir("\nQue desea editar? 1. Edad / 2. Promedio: ");
+    x = LeerEntero();
+
+    if (x == 1)
+    {
+        Escribir("\nEdad Actual: " + alumno[z - 1].Edad + ". Ingrese nueva Edad: ");
+        alumno[z - 1].Edad = LeerEntero();
+    }
+    else if (x == 2)
+    {
+        Escribir("\nIngrese nuevo Promedio: ");
+        alumno[z - 1].Promedio = LeerEntero();
+    }
+    else
+        Escribir("\n*******ERROR: La Opcion ingresada es incorrecta.");
+
+    Escribir("\nEstudiante editado. Presione cualquier tecla para regresar");
+    Leer();
+    Console.Clear();
 
 }
 
+// 3- Eliminar estudiante
+
+void Eliminar(List<Estudiante> alumno) {
+    int x, z, i = 0;
+    //Mostrando Nombre de Estudiantes guardados usando LinQ y metodo ToString para desplegar todos los datos
+    
+    alumno.ForEach(alu => Console.WriteLine(++i + ": " + alu.ToString()));
+
+    Escribir("\nIngrese la Matricula del Estudiante a eliminar: ");
+    z = LeerEntero();
+    //Eliminando Estudiantes cuya matricula sea igual a la ingresada
+    alumno.RemoveAll(mat => mat.Matricula == z);
+
+    Escribir("\nEstudiante eliminado. Presione cualquier tecla para regresar");
+    Leer();
+    Console.Clear();
+}
 
 int MostrarMenu()
 {
@@ -92,8 +132,6 @@ int MostrarMenu()
 
     return Convert.ToInt32(Leer());
 }
-
-
 
 
 
@@ -125,20 +163,21 @@ int LeerEntero()
 public class Estudiante
 {
     // Campos o Atributos
-    private int matricula;
+    /*private int matricula;
     private string nombre;
     private string apellidos;
     private int edad;
-    private int promedio;
+    private int promedio;*/
 
     //Constructor
+    
     public Estudiante(int m, string n, string a, int e, int pm)
     {
-        matricula = m;
-        nombre = n;
-        apellidos = a;
-        edad = e;
-        promedio = pm;
+        Matricula = m;
+        Nombre = n;
+        Apellidos = a;
+        Edad = e;
+        Promedio = pm;
     }
 
     // Getters y Setters
@@ -168,7 +207,7 @@ public class Estudiante
     // Metodo para mostrar menu
     public override string ToString()
     {
-        return "Matricula: " + matricula + "\nNombre: " + nombre + "\nApellidos: " + apellidos
-            + "\nEdad: " + edad + "\nPromedio: " + promedio + "\n";
+        return "Matricula: " + Matricula + "\nNombre: " + Nombre + "\nApellidos: " + Apellidos
+            + "\nEdad: " + Edad + "\nPromedio: " + Promedio + "\n";
     }
 }
