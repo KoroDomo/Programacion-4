@@ -250,7 +250,7 @@ void DesplegarDescendente(List<Estudiante> alumno)
 void DesplegarEstudiantes(List<Estudiante> alumno)
 {
     int i = 0;
-    alumno.ForEach(alu => Console.WriteLine(++i + ": " + alu.Nombre));
+    alumno.ForEach(alu => Console.WriteLine(++i + ": " + alu.ToString()));
 
     Escribir("\nPresione cualquier tecla para regresar...");
     Leer();
