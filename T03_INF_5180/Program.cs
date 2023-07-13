@@ -90,9 +90,11 @@ void Agregar(List<Estudiante> alumno)
         Escribir("ERROR: Estudiante no agregado. El Estudiante no pudo registrarse debido a duplicidad de nombre.");
     }
     else
+    {
         lista.Add(new Estudiante(matricula, nombre, apellidos, edad, promedio));
+        Escribir("\nEstudiante agregado. Presione cualquier tecla para regresar...");
+    }
 
-    Escribir("\nEstudiante agregado. Presione cualquier tecla para regresar...");
     Leer();
     Console.Clear();
 }
