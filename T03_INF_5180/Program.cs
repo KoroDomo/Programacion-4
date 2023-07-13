@@ -28,7 +28,7 @@ do
     switch (opcion)
     {
         case 1:
-            Agregar();
+            Agregar(lista);
             break;
         case 2:
             Editar(lista);
@@ -61,13 +61,22 @@ do
 
 
 // 1- Agregar Estudiante
-void Agregar()
+void Agregar(List<Estudiante> alumno)
 {
+    
     Escribir("\n");
-    Escribir("Ingrese Matricula: ");
-    matricula = LeerEntero();
+    do
+    {
+        // Nomenclatura de la Matricula solo permite que tengan 9 digitos
+        Escribir("Ingrese Matricula: (Debe tener 9 digitos)");
+        matricula = LeerEntero();
+    }
+    while (matricula < 10000000 || matricula > 999999999) ;
+
     Escribir("Ingrese Nombre: ");
     nombre = Leer();
+
+
     Escribir("Ingrese Apellidos: ");
     apellidos = Leer();
     Escribir("Ingrese Edad: ");
@@ -75,7 +84,13 @@ void Agregar()
     Escribir("Ingrese Promedio: ");
     promedio = LeerEntero();
 
-    lista.Add(new Estudiante(matricula, nombre, apellidos, edad, promedio));
+    // Comprueba si el nombre y el appellido existen en la lista. Si existen, no lo agrega y muestra un mensaje de error. De lo contrario, lo agrega
+    if(alumno.Any(al => al.Nombre == nombre && al.Apellidos == apellidos))
+    {
+        Escribir("ERROR: Estudiante no agregado. El Estudiante no pudo registrarse debido a duplicidad de nombre.");
+    }
+    else
+        lista.Add(new Estudiante(matricula, nombre, apellidos, edad, promedio));
 
     Escribir("\nEstudiante agregado. Presione cualquier tecla para regresar...");
     Leer();
@@ -330,13 +345,11 @@ public class Estudiante
         // El setter impone la nomeclatura de que la matricula a digitar deba ser de 9 digitos para poder ser guardada
         set;
         
-            //while(value < 100000000 && value > 999999999)
+            //while (value < 100000000 && value > 999999999)
             //{
             //    Console.Write("La matricula debe tener 9 digitos: ");
             //    value = Convert.ToInt32(Console.ReadLine());
             //}
-            
-        
     }
     public string Nombre { get; set; }
 
